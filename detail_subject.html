@@ -11,7 +11,7 @@
         <input type="number" id="total_score" placeholder="คะแนนรวม" required>
         <input type="number" id="midterm_score" placeholder="คะแนนกลางภาค" required>
         <input type="number" id="final_score" placeholder="คะแนนปลายภาค" required>
-        <input type="number" id="assignments_score" placeholder="คะแนนเก็บ" required>
+        <input type="number" id="assignment_score" placeholder="คะแนนเก็บ" required>
         <button type="submit">บันทึก</button>
     </form>
 
@@ -21,14 +21,14 @@
             const total_score = document.getElementById("total_score").value;
             const midterm_score = document.getElementById("midterm_score").value;
             const final_score = document.getElementById("final_score").value;
-            const assignments_score = document.getElementById("assignments_score").value;
+            const assignment_score = document.getElementById("assignment_score").value;
 
             const response = await fetch('http://127.0.0.1:8000/insert', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ total_score, midterm_score, final_score, assignments_score }),
+                body: JSON.stringify({ total_score, midterm_score, final_score, assignment_score }),
             });
 
             const result = await response.json();
