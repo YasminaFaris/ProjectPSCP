@@ -6,19 +6,20 @@ export default function Page(){
 
     const [ name , setName ] = useState("")
     const [ subID , setsubID ] = useState("")
+    const id = 67070111
     const route = useRouter()
 
     async function onCreate(){
         // รอ backend
-        // const response = await fetch('http://127.0.0.1:8000/insert', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ total_score, midterm_score, final_score, assignment_score }),
-        // });
+        const response = await fetch('http://127.0.0.1:8000/insertsubject', {
+             method: 'POST',
+             headers: {
+                 'Content-Type': 'application/json',
+             },
+             body: JSON.stringify({id, name , subID }),
+         });
 
-        // const result = await response.json();
+        const result = await response.json();
         route.push("/subject/" + name)
     
     }

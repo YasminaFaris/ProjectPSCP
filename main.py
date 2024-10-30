@@ -47,16 +47,16 @@ app.add_middleware(
 )
 
 class Subject(BaseModel):
-    total_score: float
-    midterm_score: float
-    final_score: float
-    assignment_score: float
+    id:int
+    name: str
+    subID: int
 
-@app.post('/insert')
-def insert(score: Subject):
+@app.post('/insertsubject')
+def insert(values: Subject):
+
     cursor = db_connect().cursor()
-    cursor.execute("INSERT INTO table_subject (total_score, midterm_score, final_score, assignment_score ) VALUES (%s, %s, %s, %s)", 
-                   (score.total_score, score.midterm_score, score.final_score, score.assignment_score))
+    cursor.execute("INSERT INTO table_subject (user_id,subject_name, subject_id) VALUES (%s, %s, %s)", 
+                    (values.id, values.name, values.subID))
     cursor.connection.commit()
-    return {"message": "User created."}
-
+    return {"message": "Successful"}
+#uvicorn main:app --reload
