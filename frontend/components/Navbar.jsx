@@ -1,6 +1,6 @@
 import { House , Menu , CircleUserRound } from "lucide-react"
 
-export function Navbar(){
+export function Navbar(props){
     return(
         <div className="bg-zinc-600 text-white flex justify-between p-4">
             <div className="flex gap-2">
@@ -8,7 +8,7 @@ export function Navbar(){
                 <Menu />
             </div>
             <a className="flex gap-2">
-                Suwijak
+                {props.name}
                 <CircleUserRound />
             </a>
         </div>
