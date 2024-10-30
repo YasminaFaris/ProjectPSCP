@@ -10,7 +10,7 @@ export default function Page() {
                 <input type="password" className="w-full border border-zinc-300 px-4 p-2 mb-2 rounded-xl" placeholder="Password" />
                 <Link className="underline w-full block text-zinc-500 mb-2" href={"/forgot-password"}>Forgot password?</Link>
                 <button className="bg-red-400 p-2 text-xl mb-4 w-full rounded-xl text-white">Log in</button>
-                <p className="text-center">Don't have an accout? <Link href={"/sign-up"} className="text-red-400">Sign Up</Link></p>
+                <p className="text-center">Don't have an accout? <Link href={"/signup"} className="text-red-400">Sign Up</Link></p>
             </div>
        </div>
     )
