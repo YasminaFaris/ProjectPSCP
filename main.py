@@ -13,27 +13,6 @@ def db_connect():
     return connect
 
 app = FastAPI()
-@app.get('/db')
-def database():
-    connect = db_connect()
-    cursor = connect.cursor()
-    query = "SELECT * FROM table_login"
-    cursor.execute(query)
-    rows = cursor.fetchall()
-    
-    # ปิดการเชื่อมต่อ
-    cursor.close()
-    connect.close()
-
-    data = []
-    for row in rows:
-        data.append({
-            "id" : row[0] ,
-            "username" : row[1] ,
-            "password" : row[2] ,
-        })
-    return data
-
 @app.get('/')
 def main():
     return{"hello":"world"}
@@ -57,6 +36,19 @@ def insert(values: Subject):
     cursor = db_connect().cursor()
     cursor.execute("INSERT INTO table_subject (user_id,subject_name, subject_id) VALUES (%s, %s, %s)", 
                     (values.id, values.name, values.subID))
+    cursor.connection.commit()
+    return {"message": "Successful"}
+
+class Signup(BaseModel):
+    userid:str
+    username: str
+    password: str
+
+@app.post('/signup')
+def insert(values: Signup):
+    cursor = db_connect().cursor()
+    cursor.execute("INSERT INTO table_user (id,username, password) VALUES (%s, %s, %s)", 
+                    (values.userid, values.username, values.password))
     cursor.connection.commit()
     return {"message": "Successful"}
 #uvicorn main:app --reload
