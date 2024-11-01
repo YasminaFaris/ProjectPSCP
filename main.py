@@ -47,8 +47,25 @@ class Signup(BaseModel):
 @app.post('/signup')
 def insert(values: Signup):
     cursor = db_connect().cursor()
-    cursor.execute("INSERT INTO table_user (id,username, password) VALUES (%s, %s, %s)", 
+    cursor.execute("INSERT INTO table_user (user_id,username, password) VALUES (%s, %s, %s)", 
                     (values.userid, values.username, values.password))
     cursor.connection.commit()
     return {"message": "Successful"}
 #uvicorn main:app --reload
+#python -m uvicorn main:app --reload
+
+class totoaldata(BaseModel):
+    userid:str
+    subjectid:int
+    subjectname:str
+    subjectassignment:str
+    scoreassinment:int
+    myscore:int
+
+@app.post('/totoaldata')
+def insert(values: totoaldata):
+    cursor = db_connect().cursor()
+    cursor.execute("INSERT INTO table_database (user_id,subject_id,subject_name,subject_assignment,score_assignment,my_score) VALUES (%s, %s, %s,%s, %s, %s)", 
+                    (values.userid, values.subjectid, values.subjectname , values.subjectassignment , values.scoreassinment , values.myscore))
+    cursor.connection.commit()
+    return {"message": "Successful"}
