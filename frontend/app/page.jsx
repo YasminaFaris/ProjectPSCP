@@ -1,49 +1,28 @@
-"use client";
-import React, { useEffect, useState } from 'react';
+"use client"
 
-function App() {
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+import Link from "next/link"
+import { useEffect, useState } from 'react';
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://localhost:8000/db');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const result = await response.json();
-                setData(result);
-            } catch (error) {
-                setError(error.message);
-            } finally {
-                setLoading(false);
-            }
-        };
+export default function Page(){
+  const [data, setData] = useState([]);
 
-        fetchData();
-    }, []);
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/data")
+      .then((response) => response.json())
+      .then((result) => setData(result.data))
+      .catch((error) => console.error("Error fetching data:", error));
+  }, []);
 
-    return (
-        <div>
-            <h1>FastAPI Data in React</h1>
-            {loading ? (
-                <p>Loading...</p>
-            ) : error ? (
-                <p>Error: {error}</p>
-            ) : (
-                <ul>
-                    {data.map((item) => (
-                        <li key={item.id}>
-                            <p>Username: {item.username}</p>
-                            <p>Password: {item.password}</p>
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </div>
-    );
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-[url('https://img.freepik.com/free-photo/artistic-blurry-colorful-wallpaper-background_58702-8283.jpg?t=st=1730457212~exp=1730460812~hmac=eb35c2503d617b2e891048eb19ada7d3c48ce4c9d417eb91f6fa8cfa359b1724&w=996')] bg-cover bg-center h-64 rounded-lg shadow-md">
+            <div className=" p-6  max-w-[450px]">
+                <h1 className="font-bold text-4xl text-center mb-2 text-blue-500" >ALL SUBJECT</h1>
+                <div className="flex justify-center gap-10">
+                {data.map((item, index) => (
+                <button className="bg-slate-50 p-2 text-xl mb-4 w-64 h-32 rounded-xl text-black">{item}</button>
+                ))}
+                </div>
+            </div>
+       </div>
+  );
 }
-
-export default App;

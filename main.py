@@ -69,3 +69,18 @@ def insert(values: totoaldata):
                     (values.userid, values.subjectid, values.subjectname , values.subjectassignment , values.scoreassinment , values.myscore))
     cursor.connection.commit()
     return {"message": "Successful"}
+
+def get_data_from_db():
+    cursor = db_connect().cursor()
+    cursor.execute("SELECT * FROM table_subject")
+    data = cursor.fetchall()
+    return data
+
+@app.get("/data")
+def read_data():
+    data = get_data_from_db()
+    return {"data": data}
+
+#@app.get("/data")
+#def get_data():
+#    return {"data": ["Test 1", "Test 2", "Test 3" ,"Test 4"]}
